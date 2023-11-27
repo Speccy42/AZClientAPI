@@ -1,0 +1,5 @@
+### Project excluse paths ###
+target
+.idea
+
+AZClientAPI.iml

@@ -1,0 +1,5 @@
+name: AZClientAPI
+version: '${project.version}'
+main: fr.speccy.azclientapi.bukkit.AZClientPlugin
+depend: [ProtocolLib]
+author: Speccy

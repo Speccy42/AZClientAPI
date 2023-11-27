@@ -1,0 +1,4 @@
+name: AZClientAPI
+version: '${project.version}'
+main: fr.speccy.azclientapi.bungee.AZClientPlugin
+author: Speccy
