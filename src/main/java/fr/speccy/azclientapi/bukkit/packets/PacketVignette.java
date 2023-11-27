@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import pactify.client.api.plsp.packet.client.PLSPPacketVignette;
 
 public class PacketVignette {
-    public static void setVignette(Player player, Integer r, Integer g, Integer b) {
+    public static void setVignette(Player player, Float r, Float g, Float b) {
         AZClientPlugin.main.getAZManager().sendPLSPMessage(player, new PLSPPacketVignette(true, r, g, b));
     }
 
