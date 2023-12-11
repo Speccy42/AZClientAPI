@@ -23,7 +23,6 @@ public class PacketWindow implements Listener {
     private final Map<UUID, Integer> windowId = new HashMap<>();
 
     public PacketWindow(AZClientPlugin plugin) {
-        // TRANSACTION (SERVER)
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.TRANSACTION) {
             @Override
             public void onPacketSending(PacketEvent event) {
@@ -44,7 +43,6 @@ public class PacketWindow implements Listener {
             }
         });
 
-        // OPEN_WINDOW (SERVER)
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.OPEN_WINDOW) {
             @Override
             public void onPacketSending(PacketEvent event) {
@@ -65,7 +63,6 @@ public class PacketWindow implements Listener {
             }
         });
 
-        // CLOSE_WINDOW (CLIENT)
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Client.CLOSE_WINDOW) {
             @Override
             public void onPacketReceiving(PacketEvent event) {
@@ -82,7 +79,6 @@ public class PacketWindow implements Listener {
             }
         });
 
-        // WINDOW CLICK ITEM (CLIENT)
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Client.WINDOW_CLICK) {
             @Override
             public void onPacketReceiving(PacketEvent event) {
@@ -99,7 +95,6 @@ public class PacketWindow implements Listener {
             }
         });
 
-        // WINDOW_ITEM (SERVER)
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.WINDOW_ITEMS) {
             @Override
             public void onPacketSending(PacketEvent event) {
@@ -116,7 +111,6 @@ public class PacketWindow implements Listener {
             }
         });
 
-        // WINDOW_DATA (SERVER)
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.WINDOW_DATA) {
             @Override
             public void onPacketSending(PacketEvent event) {

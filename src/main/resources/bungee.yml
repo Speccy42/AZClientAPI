@@ -1,4 +1,5 @@
 name: AZClientAPI
 version: '${project.version}'
+description: A plugin to integrate the AZ Launcher.
 main: fr.speccy.azclientapi.bungee.AZClientPlugin
 author: Speccy

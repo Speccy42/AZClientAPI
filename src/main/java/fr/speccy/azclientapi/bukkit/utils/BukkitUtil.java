@@ -1,10 +1,11 @@
 package fr.speccy.azclientapi.bukkit.utils;
 
-import org.bukkit.entity.Player;
-import java.util.regex.Matcher;
 import org.bukkit.Bukkit;
-import java.util.regex.Pattern;
+import org.bukkit.entity.Player;
+
 import java.lang.reflect.Method;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class BukkitUtil {
     private static final Method PLAYER_ADDCHANNEL_METHOD;
@@ -14,7 +15,7 @@ public final class BukkitUtil {
         SERVER_VERSION = Pattern.compile("\\(MC: (?<major>[0-9]{1,3})\\.(?<minor>[0-9]{1,3})(?:\\.(?<patch>[0-9]{1,3}))?\\)");
         final String ocbPackage = Bukkit.getServer().getClass().getName().replaceAll("\\.[^.]+$", "");
         try {
-            final Class<?> playerClass = Class.forName(String.valueOf(ocbPackage) + ".entity.CraftPlayer");
+            final Class<?> playerClass = Class.forName(ocbPackage + ".entity.CraftPlayer");
             final Method addChannelMethod = playerClass.getDeclaredMethod("addChannel", String.class);
             addChannelMethod.setAccessible(true);
             PLAYER_ADDCHANNEL_METHOD = addChannelMethod;
@@ -42,11 +43,6 @@ public final class BukkitUtil {
         catch (ReflectiveOperationException ex) {
             throw new RuntimeException(ex);
         }
-    }
-
-    public static String getAlpha(final int index, final boolean inverse) {
-        final String alpha = "abcdefghijklmnopqrstuvwxyz";
-        return inverse ? Character.toString(alpha.charAt(26 - index)) : Character.toString(alpha.charAt(index));
     }
 
     private BukkitUtil() {

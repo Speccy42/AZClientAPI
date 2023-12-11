@@ -1,5 +1,6 @@
 name: AZClientAPI
 version: '${project.version}'
+description: A plugin to integrate the AZ Launcher.
 main: fr.speccy.azclientapi.bukkit.AZClientPlugin
 depend: [ProtocolLib]
 author: Speccy

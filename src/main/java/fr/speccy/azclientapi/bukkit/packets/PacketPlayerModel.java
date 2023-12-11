@@ -8,9 +8,9 @@ import pactify.client.api.plsp.packet.client.PLSPPacketPlayerModel;
 
 public class PacketPlayerModel {
 
-    public static void setPlayerModel(Player player, Integer id) {
+    public static void setPlayerModel(Player player, Integer entityID) {
         for (Player players : Bukkit.getOnlinePlayers()) {
-            AZClientPlugin.main.getAZManager().sendPLSPMessage(players, new PLSPPacketPlayerModel(player.getUniqueId(), new PactifyModelMetadata(id)));
+            AZClientPlugin.main.getAZManager().sendPLSPMessage(players, new PLSPPacketPlayerModel(player.getUniqueId(), new PactifyModelMetadata(entityID)));
         }
     }
 
