@@ -40,17 +40,22 @@ player.openInventory(inv);
   ```
 
 #### 2. PacketConfFlag ([class info](src/main/java/fr/speccy/azclientapi/bukkit/packets/PacketConfFlag.java))
-- **Description**: Permet de modifier certaines propriétés du jeu.
+- **Description**: Permet de modifier certains comportements.
   ```java
   PacketConfFlag.setFlag(Player player, String flag, Boolean enabled)
   ```
-  - **Liste des propriétés (flag)**:
-    - "attack_cooldown" - Activer/Désactiver le cooldown d'attaque.
-    - "player_push" - Activer/Désactiver le fait que les joueurs se poussent entre eux.
-    - "large_hitbox" - Activer/Désactiver les hitboxs larges (comme en 1.8).
-    - "sword_blocking" - Activer/Désactiver la parade avec l'épée.
-    - "hit_and_block" - Activer/Désactiver le hit-and-block.
-    - "old_enchantments" - Activer/Désactiver l'ancienne interface d'enchantement (comme en 1.8).
+  - **Liste des comportements (flag)**:
+    - "attack_cooldown" (défaut: on) - Activer/Désactiver le cooldown des attaques.
+    - "player_push" (défaut: on) - Activer/Désactiver le fait que les joueurs se poussent entre eux.
+    - "large_hitbox" (défaut: off) - Activer/Désactiver les hitboxs larges (comme en 1.8).
+    - "sword_blocking" (défaut: off) - Activer/Désactiver la parade avec l'épée (pour que ça fonctionne sur un serveur 1.9 il faudra modifier son code).
+    - "hit_and_block" (défaut: off) - Activer/Désactiver le hit-and-block.
+    - "old_enchantments" (défaut: off) - Activer/Désactiver l'ancienne interface d'enchantement (comme en 1.8).
+    - "pvp_hit_priority" (défaut: off) - Activer/Désactiver le fait de donner la priorité au PVP lors des coups (ex: une entité sera ciblée en priorité plutôt qu'une herbe haute).
+    - "see_chunks" (défaut: off) - Activer/Désactiver la vision des chunks (le chunk actuel est plus brillant).
+    - "sidebar_scores" (défaut: on) - Activer/Désactiver les scores dans la sidebar du scoreboard (les nombres en rouge).
+    - "smooth_experience_bar" (défaut: off) - Activer/Désactiver l'animation lissée de la barre d'expérience.
+    - "sort_tab_list_by_names" (défaut: off) - Activer/Désactiver le trie de la tab-list en fonction du display-name des joueurs.
 
 #### 3. PacketWorldEnv ([class info](src/main/java/fr/speccy/azclientapi/bukkit/packets/PacketWorldEnv.java))
 - **Description**: Permet de changer l'environnement du monde d'un joueur.
