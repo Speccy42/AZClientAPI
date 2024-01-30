@@ -19,5 +19,4 @@ public class HandshakeFix implements Listener {
             event.getHandshake().setHost(event.getHandshake().getHost() + "\u0002" + m.group(1) + "\u0002");
         }
     }
-
 }

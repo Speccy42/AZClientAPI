@@ -54,7 +54,7 @@ public class PacketEntityMeta {
     public static void resetPlayerOpacity(Player player) {
         AZManager azManager = AZClientPlugin.main.getAZManager();
         PLSPPacketEntityMeta entityMetaPacket = new PLSPPacketEntityMeta(player.getEntityId());
-        entityMetaPacket.setOpacity(-1.0F); // DEFAULT OPACITY
+        entityMetaPacket.setOpacity(-1.0F);
 
         for (Player players : Bukkit.getOnlinePlayers()) {
             azManager.sendPLSPMessage(players, entityMetaPacket);
@@ -77,7 +77,7 @@ public class PacketEntityMeta {
         AZManager azManager = AZClientPlugin.main.getAZManager();
         PLSPPacketEntityMeta entityMetaPacket = new PLSPPacketEntityMeta(player.getEntityId());
         PactifyTagMetadata entityTagPacket = new PactifyTagMetadata();
-        entityTagPacket.setOpacity(-1.0F); // DEFAULT OPACITY
+        entityTagPacket.setOpacity(-1.0F);
         entityMetaPacket.setTag(entityTagPacket);
 
         for (Player players : Bukkit.getOnlinePlayers()) {
@@ -101,7 +101,7 @@ public class PacketEntityMeta {
         AZManager azManager = AZClientPlugin.main.getAZManager();
         PLSPPacketEntityMeta entityMetaPacket = new PLSPPacketEntityMeta(player.getEntityId());
         PactifyTagMetadata entityTagPacket = new PactifyTagMetadata();
-        entityTagPacket.setSneakOpacity(-1.0F); // DEFAULT OPACITY
+        entityTagPacket.setSneakOpacity(-1.0F);
         entityMetaPacket.setTag(entityTagPacket);
 
         for (Player players : Bukkit.getOnlinePlayers()) {
@@ -110,12 +110,31 @@ public class PacketEntityMeta {
     }
 
     public static void setNameTag(Player player, String tag) {
-        // INFINITE TAG (no character restrictions)
         AZManager azManager = AZClientPlugin.main.getAZManager();
         PLSPPacketEntityMeta entityMetaPacket = new PLSPPacketEntityMeta(player.getEntityId());
         PactifyTagMetadata entityTagPacket = new PactifyTagMetadata();
         entityTagPacket.setText(ChatColor.translateAlternateColorCodes('&', tag));
         entityMetaPacket.setTag(entityTagPacket);
+
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            azManager.sendPLSPMessage(players, entityMetaPacket);
+        }
+    }
+
+    public static void setSubTag(Player player, String tag) {
+        AZManager azManager = AZClientPlugin.main.getAZManager();
+        PLSPPacketEntityMeta entityMetaPacket = new PLSPPacketEntityMeta(player.getEntityId());
+        entityMetaPacket.setSubTag(new PactifyTagMetadata(ChatColor.translateAlternateColorCodes('&', tag)));
+
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            azManager.sendPLSPMessage(players, entityMetaPacket);
+        }
+    }
+
+    public static void setSupTag(Player player, String tag) {
+        AZManager azManager = AZClientPlugin.main.getAZManager();
+        PLSPPacketEntityMeta entityMetaPacket = new PLSPPacketEntityMeta(player.getEntityId());
+        entityMetaPacket.setSupTag(new PactifyTagMetadata(ChatColor.translateAlternateColorCodes('&', tag)));
 
         for (Player players : Bukkit.getOnlinePlayers()) {
             azManager.sendPLSPMessage(players, entityMetaPacket);

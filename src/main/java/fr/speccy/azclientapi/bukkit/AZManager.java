@@ -1,49 +1,42 @@
 package fr.speccy.azclientapi.bukkit;
 
-import java.io.IOException;
-
 import fr.speccy.azclientapi.bukkit.packets.PacketOutBuffer;
-import fr.speccy.azclientapi.bukkit.utils.BukkitUtil;
-import org.bukkit.event.HandlerList;
-import java.util.logging.Level;
-
-import pactify.client.api.mcprotocol.NotchianPacketBuffer;
-import pactify.client.api.mcprotocol.util.NotchianPacketUtil;
-import pactify.client.api.plsp.PLSPProtocol;
-import pactify.client.api.plsp.PLSPPacketHandler;
-import pactify.client.api.plsp.PLSPPacket;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.EventHandler;
-import org.bukkit.metadata.MetadataValue;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.event.player.PlayerLoginEvent;
-import java.util.HashMap;
-import java.util.UUID;
-import java.util.Map;
-import org.bukkit.plugin.Plugin;
-import java.io.Closeable;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.Plugin;
+import pactify.client.api.mcprotocol.util.NotchianPacketUtil;
+import pactify.client.api.plsp.PLSPPacket;
+import pactify.client.api.plsp.PLSPPacketHandler;
+import pactify.client.api.plsp.PLSPProtocol;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.logging.Level;
 
 public class AZManager implements Listener, Closeable {
     private final Plugin plugin;
-    private final int serverVersion;
-    private static final String PLSP_CHANNEL = "PLSP";
     private final Map<UUID, AZPlayer> players;
 
     public AZManager(final Plugin plugin) {
         this.players = new HashMap<UUID, AZPlayer>();
         this.plugin = plugin;
-        this.serverVersion = BukkitUtil.findServerVersion();
-        plugin.getServer().getPluginManager().registerEvents((Listener)this, plugin);
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
         plugin.getServer().getMessenger().registerOutgoingPluginChannel(plugin, "PLSP");
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerLogin(final PlayerLoginEvent event) {
-        event.getPlayer().setMetadata("AZClientPlugin:hostname", (MetadataValue)new FixedMetadataValue(this.plugin, (Object)event.getHostname()));
+        event.getPlayer().setMetadata("AZClientPlugin:hostname", new FixedMetadataValue(this.plugin, event.getHostname()));
         final AZPlayer AZPlayer;
         this.players.put(event.getPlayer().getUniqueId(), AZPlayer = new AZPlayer(this, event.getPlayer()));
         AZPlayer.init();
@@ -81,9 +74,9 @@ public class AZManager implements Listener, Closeable {
     public void sendPLSPMessage(final Player player, final PLSPPacket<PLSPPacketHandler.ClientHandler> message) {
         try {
             final PacketOutBuffer buf = new PacketOutBuffer();
-            final PLSPProtocol.PacketData<?> packetData = (PLSPProtocol.PacketData<?>)PLSPProtocol.getClientPacketByClass((Class)message.getClass());
-            NotchianPacketUtil.writeString((NotchianPacketBuffer)buf, packetData.getId(), 32767);
-            message.write((NotchianPacketBuffer)buf);
+            final PLSPProtocol.PacketData<?> packetData = PLSPProtocol.getClientPacketByClass(message.getClass());
+            NotchianPacketUtil.writeString(buf, packetData.getId(), 32767);
+            message.write(buf);
             player.sendPluginMessage(this.plugin, "PLSP", buf.toBytes());
         }
         catch (Exception e) {
@@ -92,7 +85,7 @@ public class AZManager implements Listener, Closeable {
     }
 
     public void close() throws IOException {
-        HandlerList.unregisterAll((Listener)this);
+        HandlerList.unregisterAll(this);
         this.plugin.getServer().getMessenger().unregisterOutgoingPluginChannel(this.plugin, "PLSP");
     }
 
@@ -100,11 +93,10 @@ public class AZManager implements Listener, Closeable {
         return this.plugin;
     }
 
-    public int getServerVersion() {
-        return this.serverVersion;
-    }
-
-    public static Integer getColor(final String hexColor) {
+    public static Integer getColor(String hexColor) {
+        if (hexColor.startsWith("#")) {
+            hexColor = hexColor.substring(1);
+        }
         String hexValue = "0xFF" + hexColor;
         long longValue = Long.parseLong(hexValue.substring(2), 16);
         return (int) longValue;

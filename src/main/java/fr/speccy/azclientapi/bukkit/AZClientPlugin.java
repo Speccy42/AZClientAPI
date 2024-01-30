@@ -1,7 +1,6 @@
 package fr.speccy.azclientapi.bukkit;
 
 import fr.speccy.azclientapi.bukkit.packets.PacketWindow;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AZClientPlugin extends JavaPlugin {
@@ -10,8 +9,9 @@ public final class AZClientPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        AZManager = new AZManager((Plugin)this);
-        getServer().getPluginManager().registerEvents(new PacketWindow(this), (Plugin)this);
+        AZManager = new AZManager(this);
+        getServer().getPluginManager().registerEvents(new PacketWindow(this), this);
+        getLogger().info("Plugin is now loaded! (Authors: Speccy and THE_BATTEUR)");
         main = this;
     }
 
