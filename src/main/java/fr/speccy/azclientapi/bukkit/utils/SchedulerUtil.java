@@ -1,11 +1,12 @@
 package fr.speccy.azclientapi.bukkit.utils;
 
-import org.bukkit.plugin.Plugin;
-import java.util.Iterator;
-import java.util.Collection;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 public final class SchedulerUtil {
+
     public static void scheduleSyncDelayedTask(final JavaPlugin plugin, final Collection<Integer> tasksCollection, final Runnable task, final long delay) {
         new Task(tasksCollection, task).scheduleSyncDelayedTask(plugin, delay);
     }
@@ -13,7 +14,7 @@ public final class SchedulerUtil {
     public static void cancelTasks(final JavaPlugin plugin, final Collection<Integer> tasksCollection) {
         final Iterator<Integer> it = tasksCollection.iterator();
         while (it.hasNext()) {
-            plugin.getServer().getScheduler().cancelTask((int)it.next());
+            plugin.getServer().getScheduler().cancelTask(it.next());
             it.remove();
         }
     }
@@ -35,7 +36,7 @@ public final class SchedulerUtil {
         }
 
         public void scheduleSyncDelayedTask(final JavaPlugin plugin, final long delay) {
-            this.taskId = plugin.getServer().getScheduler().scheduleSyncDelayedTask((Plugin)plugin, (Runnable)this, delay);
+            this.taskId = plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, this, delay);
             if (this.taskId != -1) {
                 this.tasksCollection.add(this.taskId);
             }

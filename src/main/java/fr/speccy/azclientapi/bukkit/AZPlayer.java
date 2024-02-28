@@ -1,21 +1,15 @@
 package fr.speccy.azclientapi.bukkit;
 
-import java.util.HashSet;
-import java.util.Collection;
-
 import fr.speccy.azclientapi.bukkit.utils.BukkitUtil;
 import fr.speccy.azclientapi.bukkit.utils.SchedulerUtil;
-import org.bukkit.plugin.java.JavaPlugin;
-import pactify.client.api.plsp.packet.client.*;
-
-import java.util.Arrays;
-
-import java.util.regex.Matcher;
-import java.util.List;
-import org.bukkit.metadata.MetadataValue;
-import java.util.Set;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.MetadataValue;
+import pactify.client.api.plsp.packet.client.PLSPPacketReset;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AZPlayer {
@@ -31,7 +25,7 @@ public class AZPlayer {
     }
 
     public void init() {
-        final List<MetadataValue> hostnameMeta = (List<MetadataValue>)this.player.getMetadata("AZClientPlugin:hostname");
+        final List<MetadataValue> hostnameMeta = this.player.getMetadata("AZClientPlugin:hostname");
         if (!hostnameMeta.isEmpty()) {
             final String hostname = hostnameMeta.get(0).asString();
             final Matcher m = AZPlayer.AZ_HOSTNAME_PATTERN.matcher(hostname);
@@ -47,25 +41,11 @@ public class AZPlayer {
 
     public void join() {
         this.joined = true;
-        this.service.sendPLSPMessage(player, new PLSPPacketReset());
-        final boolean attackCooldown = false;
-        final boolean playerPush = false;
-        final boolean largeHitbox = true;
-        final boolean swordBlocking = true;
-        final boolean hitAndBlock = true;
-        final boolean oldEnchantments = true;
-        this.service.sendPLSPMessage(player, new PLSPPacketConfFlags(Arrays.asList(
-                new PLSPPacketConfFlag("attack_cooldown", attackCooldown),
-                new PLSPPacketConfFlag("player_push", playerPush),
-                new PLSPPacketConfFlag("large_hitbox", largeHitbox),
-                new PLSPPacketConfFlag("sword_blocking", swordBlocking),
-                new PLSPPacketConfFlag("hit_and_block", hitAndBlock),
-                new PLSPPacketConfFlag("old_enchantments", oldEnchantments)
-        )));
+        this.service.sendPLSPMessage(this.player, new PLSPPacketReset());
     }
 
     public void free(final boolean onQuit) {
-        SchedulerUtil.cancelTasks((JavaPlugin)AZClientPlugin.main, (Collection)this.scheduledTasks);
+        SchedulerUtil.cancelTasks(AZClientPlugin.main, this.scheduledTasks);
         if (!onQuit) {
             this.service.sendPLSPMessage(this.player, new PLSPPacketReset());
         }
@@ -99,14 +79,6 @@ public class AZPlayer {
 
     public boolean isJoined() {
         return this.joined;
-    }
-
-    public void setJoined(final boolean joined) {
-        this.joined = joined;
-    }
-
-    public void setLauncherProtocolVersion(final int launcherProtocolVersion) {
-        this.launcherProtocolVersion = launcherProtocolVersion;
     }
 
     @Override
@@ -166,7 +138,6 @@ public class AZPlayer {
 
     @Override
     public int hashCode() {
-        final int PRIME = 59;
         int result = 1;
         final Object $service = this.getService();
         result = result * 59 + (($service == null) ? 43 : $service.hashCode());
