@@ -1,4 +1,4 @@
-package fr.speccy.azclientapi.bukkit.packets;
+package fr.speccy.azclientapi.bukkit.packets.player;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;

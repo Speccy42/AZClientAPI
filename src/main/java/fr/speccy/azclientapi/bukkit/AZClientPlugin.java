@@ -1,6 +1,6 @@
 package fr.speccy.azclientapi.bukkit;
 
-import fr.speccy.azclientapi.bukkit.packets.PacketWindow;
+import fr.speccy.azclientapi.bukkit.packets.player.PacketWindow;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AZClientPlugin extends JavaPlugin {

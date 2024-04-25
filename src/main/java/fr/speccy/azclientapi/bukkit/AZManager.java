@@ -1,6 +1,6 @@
 package fr.speccy.azclientapi.bukkit;
 
-import fr.speccy.azclientapi.bukkit.packets.PacketOutBuffer;
+import fr.speccy.azclientapi.bukkit.utils.PacketBuffer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -73,7 +73,7 @@ public class AZManager implements Listener, Closeable {
 
     public void sendPLSPMessage(final Player player, final PLSPPacket<PLSPPacketHandler.ClientHandler> message) {
         try {
-            final PacketOutBuffer buf = new PacketOutBuffer();
+            final PacketBuffer buf = new PacketBuffer();
             final PLSPProtocol.PacketData<?> packetData = PLSPProtocol.getClientPacketByClass(message.getClass());
             NotchianPacketUtil.writeString(buf, packetData.getId(), 32767);
             message.write(buf);

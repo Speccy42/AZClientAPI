@@ -6,7 +6,7 @@
 
     <groupId>fr</groupId>
     <artifactId>AZClientAPI</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0-dev</version>
     <name>AZClientAPI</name>
 
     <properties>
@@ -89,11 +89,13 @@
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
             <version>5.1.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>pactify.client.api</groupId>
+            <groupId>nz.az-launcher</groupId>
             <artifactId>plsp-protocol</artifactId>
-            <version>20230914</version>
+            <version>20240425</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
