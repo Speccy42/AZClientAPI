@@ -67,7 +67,7 @@ public class AZManager implements Listener, Closeable {
     private void playerQuit(final Player player) {
         final AZPlayer AZPlayer = this.players.remove(player.getUniqueId());
         if (AZPlayer != null) {
-            AZPlayer.free(true);
+            AZPlayer.free();
         }
     }
 

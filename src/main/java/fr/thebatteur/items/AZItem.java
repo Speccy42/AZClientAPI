@@ -2,9 +2,9 @@ package fr.thebatteur.items;
 
 import fr.thebatteur.items.handlers.MenuState;
 import fr.thebatteur.items.handlers.Sprite;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 public class AZItem {
@@ -30,7 +30,7 @@ public class AZItem {
     }
 
     private void addNBTTags(String name, NBTTagCompound compound) {
-        net.minecraft.server.v1_8_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(this.itemStack);
+        net.minecraft.server.v1_9_R2.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(this.itemStack);
         NBTTagCompound nmsCompound = nmsItemStack.getTag();
         if (nmsCompound == null) {
             nmsCompound = new NBTTagCompound();

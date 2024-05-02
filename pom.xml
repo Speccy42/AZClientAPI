@@ -74,6 +74,13 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>spigot</groupId>
+            <artifactId>Spigot-API</artifactId>
+            <version>1.9.4</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/nmont/IdeaProjects/dependencies/Spigot-1.9.4.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-proxy</artifactId>
             <version>1.15-SNAPSHOT</version>

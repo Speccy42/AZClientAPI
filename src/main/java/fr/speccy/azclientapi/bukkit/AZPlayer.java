@@ -4,7 +4,6 @@ import fr.speccy.azclientapi.bukkit.utils.BukkitUtil;
 import fr.speccy.azclientapi.bukkit.utils.SchedulerUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
-import pactify.client.api.plsp.packet.client.PLSPPacketReset;
 
 import java.util.HashSet;
 import java.util.List;
@@ -41,14 +40,10 @@ public class AZPlayer {
 
     public void join() {
         this.joined = true;
-        this.service.sendPLSPMessage(this.player, new PLSPPacketReset());
     }
 
-    public void free(final boolean onQuit) {
+    public void free() {
         SchedulerUtil.cancelTasks(AZClientPlugin.main, this.scheduledTasks);
-        if (!onQuit) {
-            this.service.sendPLSPMessage(this.player, new PLSPPacketReset());
-        }
     }
 
     public boolean hasLauncher() {
