@@ -273,15 +273,4 @@ public class AZItem {
             return nbtUtil;
         }
     }
-
-    public static String customColorText(String text, int color) {
-        StringBuilder sb = new StringBuilder("§#");
-        String hex = Integer.toHexString(color);
-        for (int i = 0; i < hex.length(); i += 2) {
-            String str = hex.substring(i, i + 2);
-            int charCode = Integer.parseInt(str, 16);
-            sb.append((char) charCode);
-        }
-        return sb.append(text).toString();
-    }
 }

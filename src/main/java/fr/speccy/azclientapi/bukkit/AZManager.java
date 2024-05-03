@@ -92,13 +92,4 @@ public class AZManager implements Listener, Closeable {
     public Plugin getPlugin() {
         return this.plugin;
     }
-
-    public static Integer getColor(String hexColor) {
-        if (hexColor.startsWith("#")) {
-            hexColor = hexColor.substring(1);
-        }
-        String hexValue = "0xFF" + hexColor;
-        long longValue = Long.parseLong(hexValue.substring(2), 16);
-        return (int) longValue;
-    }
 }
