@@ -20,6 +20,7 @@ import java.util.*;
 public class PacketWindow implements Listener {
     private final Map<UUID, Integer> windowId = new HashMap<>();
     private static final Set<UUID> customWindow = new HashSet<>();
+    private static final Map<UUID, String> inventoryType = new HashMap<>();
 
     public PacketWindow(AZClientPlugin plugin) {
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.TRANSACTION) {
@@ -30,7 +31,11 @@ public class PacketWindow implements Listener {
                 PacketContainer packet = event.getPacket();
                 if (AZPlayer.hasAZLauncher(player)) {
                     if (customWindow.contains(uuid)) {
-                        packet.getIntegers().write(0, windowId.get(uuid));
+                        if (!inventoryType.containsKey(uuid)) {
+                            packet.getIntegers().write(0, windowId.get(uuid));
+                        } else {
+                            packet.getIntegers().write(0, windowId.get(uuid)-100);
+                        }
                         boolean getAccepted = packet.getBooleans().read(0);
                         if (!getAccepted) {
                             packet.getBooleans().write(0, true);
@@ -53,8 +58,12 @@ public class PacketWindow implements Listener {
                         windowId.put(uuid, windowId.get(uuid)-100);
                     }
                     if (customWindow.contains(uuid)) {
-                        packet.getIntegers().write(0, windowId.get(uuid));
-                        event.setPacket(packet);
+                        if (packet.getStrings().read(0).equalsIgnoreCase("minecraft:container")) {
+                            packet.getIntegers().write(0, windowId.get(uuid));
+                            event.setPacket(packet);
+                        } else {
+                            inventoryType.put(uuid, packet.getStrings().read(0));
+                        }
                     }
                 }
             }
@@ -68,6 +77,7 @@ public class PacketWindow implements Listener {
                 PacketContainer packet = event.getPacket();
                 if (AZPlayer.hasAZLauncher(player)) {
                     if (customWindow.contains(uuid)) {
+                        inventoryType.remove(uuid);
                         packet.getIntegers().write(0, windowId.get(uuid)-100);
                         event.setPacket(packet);
                         remove(player);
@@ -99,7 +109,11 @@ public class PacketWindow implements Listener {
                 PacketContainer packet = event.getPacket();
                 if (AZPlayer.hasAZLauncher(player)) {
                     if (customWindow.contains(uuid)) {
-                        packet.getIntegers().write(0, windowId.get(uuid));
+                        if (!inventoryType.containsKey(uuid)) {
+                            packet.getIntegers().write(0, windowId.get(uuid));
+                        } else {
+                            packet.getIntegers().write(0, windowId.get(uuid)-100);
+                        }
                         event.setPacket(packet);
                     }
                 }
@@ -114,7 +128,11 @@ public class PacketWindow implements Listener {
                 PacketContainer packet = event.getPacket();
                 if (AZPlayer.hasAZLauncher(player)) {
                     if (customWindow.contains(uuid)) {
-                        packet.getIntegers().write(0, windowId.get(uuid));
+                        if (!inventoryType.containsKey(uuid)) {
+                            packet.getIntegers().write(0, windowId.get(uuid));
+                        } else {
+                            packet.getIntegers().write(0, windowId.get(uuid)-100);
+                        }
                         event.setPacket(packet);
                     }
                 }
