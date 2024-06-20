@@ -6,7 +6,7 @@
 
     <groupId>fr</groupId>
     <artifactId>AZClientAPI</artifactId>
-    <version>1.2.0-dev</version>
+    <version>1.1.1</version>
     <name>AZClientAPI</name>
 
     <properties>
@@ -74,11 +74,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>spigot</groupId>
-            <artifactId>Spigot-API</artifactId>
+            <groupId>AZSpigot</groupId>
+            <artifactId>AZSpigot-API</artifactId>
             <version>1.9.4</version>
             <scope>system</scope>
-            <systemPath>C:/Users/nmont/IdeaProjects/dependencies/Spigot-1.9.4.jar</systemPath>
+            <systemPath>C:/Users/nmont/IdeaProjects/dependencies/AZSpigot.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>net.md-5</groupId>

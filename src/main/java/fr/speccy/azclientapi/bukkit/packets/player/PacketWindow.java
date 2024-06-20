@@ -146,8 +146,8 @@ public class PacketWindow implements Listener {
         UUID uuid = player.getUniqueId();
         if (AZPlayer.hasAZLauncher(player)) {
             customWindow.add(uuid);
-            player.openInventory(inventory);
         }
+        player.openInventory(inventory);
     }
 
     public static void closeInventory(Player player) {
